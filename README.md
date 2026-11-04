@@ -111,7 +111,6 @@ Open `http://localhost:3000`.
 - Chat input and history are validated and length-limited on the server.
 - Security headers (HSTS, `X-Frame-Options`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`) are set in `netlify.toml`.
 - Dependabot checks npm dependencies weekly (`.github/dependabot.yml`).
-- No personal phone number is published; WhatsApp appears only if a business number is set in `src/config.ts`.
 
 ## Scripts
 

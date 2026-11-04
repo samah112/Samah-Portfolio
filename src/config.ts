@@ -26,9 +26,8 @@ export const PORTFOLIO_CONFIG = {
   // Contact & Social Links
   contact: {
     email: "samah1basudan@gmail.com",
-    // WhatsApp is hidden while empty. To show it, add a business number,
-    // e.g. "https://wa.me/9665XXXXXXXX" (avoid using a personal number).
-    whatsapp: "",
+    whatsapp: "https://wa.me/966508906437",
+    whatsappNumber: "966508906437",
     github: "https://github.com/samah112",
     linkedin: "https://www.linkedin.com/in/samah-basoodan-329348294",
     location: {
