@@ -14,11 +14,11 @@ import {
   cleanStars,
   getGeminiClient,
   getLocalFallbackResponse,
+  isRateLimited,
+  MAX_MESSAGE_LENGTH,
 } from "../../server/chatCore";
 
 type Lang = "ar" | "en";
-
-const MAX_MESSAGE_LENGTH = 2000;
 
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), {
@@ -26,9 +26,14 @@ const json = (body: unknown, status = 200) =>
     headers: { "Content-Type": "application/json; charset=utf-8" },
   });
 
-export default async (req: Request): Promise<Response> => {
+export default async (req: Request, context?: { ip?: string }): Promise<Response> => {
   if (req.method !== "POST") {
     return json({ error: "Method not allowed." }, 405);
+  }
+
+  const clientIp = context?.ip || req.headers.get("x-nf-client-connection-ip") || "unknown";
+  if (isRateLimited(clientIp)) {
+    return json({ error: "Too many requests. Please try again in a minute." }, 429);
   }
 
   let body: { message?: unknown; language?: unknown; history?: unknown };
@@ -108,4 +113,10 @@ export default async (req: Request): Promise<Response> => {
 
 export const config = {
   path: ["/api/chat", "/api/chat/stream"],
+  // Netlify platform rate limit: max 20 requests per minute per visitor IP.
+  rateLimit: {
+    windowLimit: 20,
+    windowSize: 60,
+    aggregateBy: ["ip", "domain"],
+  },
 };

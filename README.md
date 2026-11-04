@@ -107,7 +107,11 @@ Open `http://localhost:3000`.
 
 - `.env` is git-ignored; only `.env.example` is committed.
 - The Gemini key is read only by server code (`server/chatCore.ts`) and is never bundled into the frontend.
-- Chat input is validated and length-limited on the server.
+- The chat API is rate-limited per visitor (Netlify platform limit + in-app limiter) to protect the AI quota.
+- Chat input and history are validated and length-limited on the server.
+- Security headers (HSTS, `X-Frame-Options`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`) are set in `netlify.toml`.
+- Dependabot checks npm dependencies weekly (`.github/dependabot.yml`).
+- No personal phone number is published; WhatsApp appears only if a business number is set in `src/config.ts`.
 
 ## Scripts
 

@@ -91,7 +91,7 @@ export const ContactSection: React.FC = () => {
       isExternal: true,
       actionText: isRTL ? 'زيارة الحساب' : 'View Profile',
     },
-  ];
+  ].filter((channel) => Boolean(channel.href));
 
   return (
     <section id="contact" className="py-20 lg:py-28 relative overflow-hidden">
@@ -120,7 +120,7 @@ export const ContactSection: React.FC = () => {
         </motion.div>
 
         {/* 4 Clean High-Tech Contact Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+        <div className={`grid grid-cols-1 sm:grid-cols-2 ${contactChannels.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4'} gap-4 sm:gap-5`}>
           {contactChannels.map((channel, idx) => {
             const Icon = channel.icon;
             const CustomIcon = channel.customIcon;

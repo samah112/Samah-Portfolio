@@ -102,15 +102,17 @@ export const Footer: React.FC = () => {
                 <span className="hidden sm:inline">{PORTFOLIO_CONFIG.contact.email}</span>
               </a>
 
-              <a
-                href={PORTFOLIO_CONFIG.contact.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2.5 rounded-xl bg-gradient-to-r from-[#9b87c8]/25 to-[#81c8d4]/30 hover:from-[#9b87c8]/45 hover:to-[#81c8d4]/50 dark:bg-gradient-to-r dark:from-[#9b87c8]/35 dark:to-[#81c8d4]/35 text-[#261F2D] dark:text-[#81C8D4] border border-[#D9CFE8]/80 dark:border-white/10 shadow-2xs transition-all"
-                title="WhatsApp"
-              >
-                <WhatsAppIcon className="w-4 h-4 text-[#261F2D] dark:text-[#81C8D4]" />
-              </a>
+              {PORTFOLIO_CONFIG.contact.whatsapp && (
+                <a
+                  href={PORTFOLIO_CONFIG.contact.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2.5 rounded-xl bg-gradient-to-r from-[#9b87c8]/25 to-[#81c8d4]/30 hover:from-[#9b87c8]/45 hover:to-[#81c8d4]/50 dark:bg-gradient-to-r dark:from-[#9b87c8]/35 dark:to-[#81c8d4]/35 text-[#261F2D] dark:text-[#81C8D4] border border-[#D9CFE8]/80 dark:border-white/10 shadow-2xs transition-all"
+                  title="WhatsApp"
+                >
+                  <WhatsAppIcon className="w-4 h-4 text-[#261F2D] dark:text-[#81C8D4]" />
+                </a>
+              )}
 
               <a
                 href={PORTFOLIO_CONFIG.contact.linkedin}

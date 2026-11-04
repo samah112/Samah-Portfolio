@@ -10,14 +10,43 @@ export const GEMINI_MODEL = "gemini-3.7-flash";
 
 export type ChatHistoryItem = { sender: string; text: string };
 
+export const MAX_MESSAGE_LENGTH = 2000;
+const MAX_HISTORY_ITEMS = 6;
+
 export function buildContents(message: string, history: unknown) {
   const formattedHistory = Array.isArray(history)
-    ? (history as ChatHistoryItem[]).slice(-6).map((h) => ({
-        role: h.sender === "user" ? "user" : "model",
-        parts: [{ text: cleanStars(String(h.text ?? "")) }],
+    ? (history as ChatHistoryItem[]).slice(-MAX_HISTORY_ITEMS).map((h) => ({
+        role: h?.sender === "user" ? "user" : "model",
+        parts: [{ text: cleanStars(String(h?.text ?? "")).slice(0, MAX_MESSAGE_LENGTH) }],
       }))
     : [];
   return [...formattedHistory, { role: "user", parts: [{ text: message }] }];
+}
+
+/**
+ * Simple per-IP rate limiter (sliding window, in memory).
+ * Protects the Gemini quota from spam. Netlify's platform rate limit
+ * (see netlify/functions/chat.mts) is the primary guard in production.
+ */
+const RATE_WINDOW_MS = 60_000;
+const RATE_MAX_REQUESTS = 15;
+const requestLog = new Map<string, number[]>();
+
+export function isRateLimited(clientId: string): boolean {
+  const now = Date.now();
+  const recent = (requestLog.get(clientId) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
+  if (recent.length >= RATE_MAX_REQUESTS) {
+    requestLog.set(clientId, recent);
+    return true;
+  }
+  recent.push(now);
+  requestLog.set(clientId, recent);
+  if (requestLog.size > 5000) {
+    for (const [key, times] of requestLog) {
+      if (!times.some((t) => now - t < RATE_WINDOW_MS)) requestLog.delete(key);
+    }
+  }
+  return false;
 }
 
 export function cleanStars(str: string): string {

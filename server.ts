@@ -8,6 +8,8 @@ import {
   cleanStars,
   getGeminiClient,
   getLocalFallbackResponse,
+  isRateLimited,
+  MAX_MESSAGE_LENGTH,
 } from "./server/chatCore";
 import dotenv from "dotenv";
 
@@ -17,7 +19,7 @@ async function startServer() {
   const app = express();
   const PORT = 3000;
 
-  app.use(express.json());
+  app.use(express.json({ limit: "50kb" }));
 
   // Health check
   app.get("/api/health", (_req, res) => {
@@ -48,6 +50,12 @@ async function startServer() {
 
     if (!message || typeof message !== 'string') {
       return res.status(400).json({ error: "Message is required." });
+    }
+    if (message.length > MAX_MESSAGE_LENGTH) {
+      return res.status(413).json({ error: "Message is too long." });
+    }
+    if (isRateLimited(req.ip || "unknown")) {
+      return res.status(429).json({ error: "Too many requests. Please try again in a minute." });
     }
 
     res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
@@ -111,6 +119,12 @@ async function startServer() {
 
     if (!message || typeof message !== 'string') {
       return res.status(400).json({ error: "Message is required." });
+    }
+    if (message.length > MAX_MESSAGE_LENGTH) {
+      return res.status(413).json({ error: "Message is too long." });
+    }
+    if (isRateLimited(req.ip || "unknown")) {
+      return res.status(429).json({ error: "Too many requests. Please try again in a minute." });
     }
 
     const ai = getGeminiClient();
