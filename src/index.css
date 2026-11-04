@@ -1,0 +1,386 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  .dark h1, html.dark h1,
+  .dark h2, html.dark h2,
+  .dark h3, html.dark h3,
+  .dark h4, html.dark h4,
+  .dark h5, html.dark h5,
+  .dark h6, html.dark h6 {
+    color: #FFFFFF;
+  }
+}
+
+@font-face {
+  font-family: 'Garet';
+  font-style: normal;
+  font-weight: 100 550;
+  font-display: swap;
+  src: local('Garet Book'), url('/fonts/Garet-Book.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Garet';
+  font-style: normal;
+  font-weight: 551 900;
+  font-display: swap;
+  src: local('Garet Heavy'), url('/fonts/Garet-Heavy.woff') format('woff');
+}
+
+@layer base {
+  :root {
+    /* Light Mode Palette */
+    --color-lavender-white: hsl(270, 30%, 97%);
+    --color-light-blue-gray: #dfe3ea;
+    --color-light-lavender: #d9cfe8;
+    --color-soft-violet-white: #f5f2f7;
+    
+    --color-deep-plum: hsl(270, 20%, 15%);
+    --color-purple-gray: hsl(270, 10%, 45%);
+    --color-white: #ffffff;
+    
+    --color-muted-violet: hsl(270, 40%, 55%);
+    --color-lavender: hsl(300, 20%, 90%);
+    --color-pale-cyan: hsl(195, 50%, 85%);
+    --color-dusty-pink: #c8a0be;
+    --color-light-teal: #81c8d4;
+    
+    --color-canvas: hsl(270, 30%, 97%);
+    --color-text-primary: hsl(270, 20%, 15%);
+    --color-text-secondary: hsl(270, 10%, 45%);
+    --color-border-subtle: rgba(255, 255, 255, 0.85);
+  }
+
+  .dark, [data-theme="dark"] {
+    /* Dark Mode Palette */
+    --color-canvas: hsl(270, 25%, 8%);
+    --color-deep-plum-black: hsl(270, 25%, 8%);
+    --color-deep-purple: #130e24;
+    --color-midnight-blue-purple: #0d1220;
+    --color-dark-purple: #0f0b1a;
+
+    --color-text-primary: hsl(270, 15%, 92%);
+    --color-text-body: hsl(270, 15%, 92%);
+    --color-text-secondary: hsl(270, 15%, 85%);
+    --color-text-muted: hsl(270, 10%, 55%);
+
+    --color-bright-lavender: hsl(270, 60%, 70%);
+    --color-dark-plum: hsl(270, 20%, 18%);
+    --color-deep-teal: hsl(195, 60%, 40%);
+
+    --color-border-subtle: rgba(255, 255, 255, 0.10);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Garet', 'IBM Plex Sans Arabic', -apple-system, sans-serif;
+    letter-spacing: -0.01em;
+    background-color: hsl(270, 30%, 97%);
+    color: hsl(270, 20%, 15%);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  html.dark {
+    background-color: hsl(270, 25%, 8%);
+    color: hsl(270, 15%, 92%);
+  }
+
+  html[lang="ar"], html[dir="rtl"] {
+    font-family: 'Garet', 'IBM Plex Sans Arabic', -apple-system, sans-serif;
+    letter-spacing: normal;
+  }
+}
+
+/* Dedicated English Main Hero Title Modern Editorial Typography */
+.font-hero-title {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  letter-spacing: -0.025em;
+}
+
+html[lang="ar"] .font-hero-title, html[dir="rtl"] .font-hero-title {
+  font-family: 'Garet', 'IBM Plex Sans Arabic', sans-serif;
+  letter-spacing: normal;
+}
+
+.font-display {
+  font-family: 'Garet', 'IBM Plex Sans Arabic', sans-serif;
+  font-weight: 550;
+  letter-spacing: -0.02em;
+}
+
+html[lang="ar"] .font-display, html[dir="rtl"] .font-display {
+  font-family: 'Garet', 'IBM Plex Sans Arabic', sans-serif;
+  font-weight: 550;
+  letter-spacing: normal;
+}
+
+/* Iridescent Canvas Surface (Light Mode vs Dark Mode) */
+.iridescent-canvas {
+  background-color: hsl(270, 30%, 97%);
+  background-image: 
+    radial-gradient(at 15% 15%, #d9cfe8 0px, transparent 55%),
+    radial-gradient(at 85% 10%, #dfe3ea 0px, transparent 50%),
+    radial-gradient(at 50% 35%, #81c8d4 0px, transparent 40%),
+    radial-gradient(at 10% 65%, #c8a0be 0px, transparent 50%),
+    radial-gradient(at 90% 70%, #dfe3ea 0px, transparent 45%),
+    radial-gradient(at 40% 90%, #d9cfe8 0px, transparent 50%),
+    radial-gradient(at 75% 95%, #f5f2f7 0px, transparent 50%);
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
+
+.dark .iridescent-canvas, html.dark .iridescent-canvas {
+  background-color: hsl(270, 25%, 8%);
+  background-image: 
+    radial-gradient(at 15% 15%, rgba(155, 135, 200, 0.15) 0px, transparent 55%),
+    radial-gradient(at 85% 10%, rgba(19, 14, 36, 0.7) 0px, transparent 50%),
+    radial-gradient(at 50% 35%, rgba(41, 129, 153, 0.15) 0px, transparent 40%),
+    radial-gradient(at 10% 65%, rgba(200, 160, 190, 0.10) 0px, transparent 50%),
+    radial-gradient(at 90% 70%, rgba(13, 18, 32, 0.8) 0px, transparent 45%),
+    radial-gradient(at 40% 90%, rgba(15, 11, 26, 0.85) 0px, transparent 50%),
+    radial-gradient(at 75% 95%, rgba(19, 14, 36, 0.85) 0px, transparent 50%);
+}
+
+/* Translucent Frosted Glass Cards */
+.glass-card {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 16px 36px -12px rgba(38, 31, 45, 0.05);
+}
+
+.dark .glass-card, html.dark .glass-card {
+  background: linear-gradient(135deg, rgba(29, 19, 54, 0.90) 0%, rgba(22, 19, 43, 0.90) 50%, rgba(17, 26, 40, 0.90) 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.45);
+}
+
+.glass-card-solid {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow: 0 20px 40px -15px rgba(38, 31, 45, 0.07);
+}
+
+.dark .glass-card-solid, html.dark .glass-card-solid {
+  background: linear-gradient(135deg, rgba(29, 19, 54, 0.95) 0%, rgba(22, 19, 43, 0.95) 50%, rgba(17, 26, 40, 0.95) 100%);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.55);
+}
+
+.glass-card-subtle {
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+}
+
+.dark .glass-card-subtle, html.dark .glass-card-subtle {
+  background: linear-gradient(135deg, rgba(29, 19, 54, 0.75) 0%, rgba(22, 19, 43, 0.75) 50%, rgba(17, 26, 40, 0.75) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+/* Iridescent Glow Accent */
+.iridescent-glow {
+  background: linear-gradient(135deg, rgba(217, 207, 232, 0.5), rgba(189, 229, 239, 0.5), rgba(129, 200, 212, 0.45), rgba(200, 160, 190, 0.45));
+}
+
+.dark .iridescent-glow, html.dark .iridescent-glow {
+  background: linear-gradient(135deg, rgba(155, 135, 200, 0.25), rgba(41, 129, 153, 0.25), rgba(129, 200, 212, 0.2), rgba(200, 160, 190, 0.18));
+}
+
+.hero-title-gradient {
+  background: linear-gradient(135deg, #6b52a8 0%, #4fa8b8 35%, #b87ea8 70%, #7a8ac8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dark .hero-title-gradient, html.dark .hero-title-gradient {
+  background: linear-gradient(135deg, #FFFFFF 0%, #ece6f8 40%, #e1f5f8 75%, #FFFFFF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.primary-btn-gradient, .btn-primary {
+  background: linear-gradient(135deg, #9b87c8 0%, #81c8d4 100%);
+  color: #ffffff;
+}
+
+.dark .primary-btn-gradient, .dark .btn-primary {
+  background: linear-gradient(135deg, #9b87c8 0%, #81c8d4 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 20px -4px rgba(155, 135, 200, 0.35);
+}
+
+.btn-secondary {
+  background-color: #ffffff;
+  color: hsl(270, 20%, 15%);
+  border: 1px solid rgba(217, 207, 232, 0.85);
+}
+
+.dark .btn-secondary, html.dark .btn-secondary {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: hsl(270, 15%, 92%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Smooth Fluid Animations */
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(0.4deg);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(1.03);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-reverse-slow {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes wave-mesh {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(25px, -35px) scale(1.08);
+  }
+  66% {
+    transform: translate(-20px, 25px) scale(0.95);
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 7s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 6s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 40s linear infinite;
+}
+
+.animate-spin-reverse-slow {
+  animation: spin-reverse-slow 50s linear infinite;
+}
+
+.animate-wave-mesh {
+  animation: wave-mesh 14s ease-in-out infinite;
+}
+
+@keyframes gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes shimmer-sweep {
+  0% {
+    transform: translateX(-100%) rotate(25deg);
+  }
+  100% {
+    transform: translateX(200%) rotate(25deg);
+  }
+}
+
+@keyframes border-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-gradient-flow {
+  background-size: 300% 300%;
+  animation: gradient-flow 8s ease infinite;
+}
+
+.animate-gradient-flow-fast {
+  background-size: 250% 250%;
+  animation: gradient-flow 4s ease infinite;
+}
+
+.animate-shimmer-sweep {
+  animation: shimmer-sweep 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-border-rotate {
+  animation: border-rotate 8s linear infinite;
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F8F7F4;
+}
+
+.dark ::-webkit-scrollbar-track, html.dark ::-webkit-scrollbar-track {
+  background: #0d1220;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(16, 24, 39, 0.18);
+  border-radius: 9999px;
+}
+
+.dark ::-webkit-scrollbar-thumb, html.dark ::-webkit-scrollbar-thumb {
+  background: rgba(155, 135, 200, 0.25);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 24, 39, 0.35);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover, html.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(155, 135, 200, 0.45);
+}
+
